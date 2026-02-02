@@ -1,10 +1,26 @@
+import json
+import os
+
 saldo = 0
+FILE_SALDO = "saldo.json"
+
+def baca_saldo():
+    global saldo
+    if os.path.exists(FILE_SALDO):
+        with open(FILE_SALDO, "r") as file:
+            data = json.load(file)
+            saldo = data["saldo"]
+
+def simpan_saldo():
+    with open(FILE_SALDO, "w") as file:
+        json.dump({"saldo": saldo}, file)
 
 def tambah_pemasukan():
     global saldo
     jumlah = int(input("Masukkan jumlah pemasukan: "))
     saldo += jumlah
     print(f"Pemasukan berhasil ditambahkan! Saldo sekarang: {saldo}")
+    simpan_saldo()
 
 def tambah_pengeluaran():
     global saldo
@@ -14,6 +30,7 @@ def tambah_pengeluaran():
     else:
         saldo -= jumlah
         print(f"Pengeluaran berhasil dicatat! Saldo sekarang: {saldo}")
+        simpan_saldo()
 
 def lihat_saldo():
     print("=" * 30)
