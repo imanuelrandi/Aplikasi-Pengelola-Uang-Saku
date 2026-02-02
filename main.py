@@ -59,3 +59,5 @@ while True:
         break
     else:
         print("Pilihan tidak valid")
+
+baca_saldo()
